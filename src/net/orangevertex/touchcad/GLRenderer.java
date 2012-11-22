@@ -52,7 +52,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
 //	public Feeder f;
 	boolean allowDraw = false;
-	boolean is3D = false;
+	boolean is3D = true;
 
 //	public glObjects.multiLine history;
 //	public glObjects.multiLine current;
@@ -691,11 +691,6 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 					else mode++;
 					triggered = true;
 				}
-//				if (yr < 2010)yr++;
-				//System.out.println("Now generating year: " + yr);
-//				generate = true;
-//				
-//				polys = parent.readData();
 				break;
 			case 1:
 				if (mode == 0) {
