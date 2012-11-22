@@ -18,6 +18,7 @@ import java.nio.*;
 public class MainActivity extends Activity {
 	GLSurfaceView ourSurface;
 	GLRenderer glR;
+	glUI gui;
 	public FileHandler fh;
 	public TouchHandler th;
 	public DialogHandler dh;
@@ -55,7 +56,6 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 //		self = this;
-		th = new TouchHandler();
 		fh = new FileHandler(this);
 		dh = new DialogHandler(this,fh);
 		
@@ -63,12 +63,14 @@ public class MainActivity extends Activity {
 		myContext = this;
 		ourSurface = new GLSurfaceView(this);
 		glR = new GLRenderer(this,fh,dh);
+		
 //		gaR = new GARenderer();
 		ourSurface = new theGLSurfaceView(this);
 		setContentView(ourSurface);
 
 		DisplayMetrics dm = new DisplayMetrics();
 		this.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		th = new TouchHandler(glR,dm.widthPixels,dm.heightPixels);
 		th.topOffset = dm.heightPixels - 800;	
 		if (!appendEvents && recreateEvents) {
 			buildEventSuccession();
@@ -87,7 +89,9 @@ public class MainActivity extends Activity {
 		setContentView(ourSurface);
 		DisplayMetrics dm = new DisplayMetrics();
 		this.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		
 		th.topOffset = dm.heightPixels - ourSurface.getHeight();
+		
 	}
 	@Override
 	protected void onPause() {

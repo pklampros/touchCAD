@@ -167,29 +167,38 @@ public class textureQuad {
 //		Matrix.scaleM(scale,0,5*(float)Math.sin(5*frameCount),5*(float)Math.sin(5*frameCount),0);
 //		Matrix.multiplyMM(mvp,0,scale,0,mvp,0);
         // Use the program object
+		System.out.println("numba 1");
         GLES20.glUseProgram(mProgramObject);
 
+		System.out.println("numba 2");
         // Load the vertex position
         mVertices.position(0);
+		System.out.println("numba 3");
         GLES20.glVertexAttribPointer(mPositionLoc, 3, GLES20.GL_FLOAT, 
 									 false, 
 									 5 * 4, mVertices);
+		System.out.println("numba 4");
         // Load the texture coordinate
         mVertices.position(3);
+		System.out.println("numba 5");
         GLES20.glVertexAttribPointer(mTexCoordLoc, 2, GLES20.GL_FLOAT,
 									 false, 
 									 5 * 4, 
 									 mVertices);
+		System.out.println("numba 6");
 
         GLES20.glEnableVertexAttribArray(mPositionLoc);
         GLES20.glEnableVertexAttribArray(mTexCoordLoc);
+		System.out.println("numba 7");
 
         // Bind the texture
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextureId);
+		System.out.println("numba 8");
 
         // Set the sampler texture unit to 0
         GLES20.glUniform1i(mSamplerLoc, 0);
+		System.out.println("numba 9");
 
 		mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgramObject, "uMVPMatrix");
 		glBase.checkGlError("glGetUniformLocation");

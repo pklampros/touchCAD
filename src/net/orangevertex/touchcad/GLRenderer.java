@@ -56,13 +56,13 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
 //	public glObjects.multiLine history;
 //	public glObjects.multiLine current;
-	public textureQuad tC;
+//	public textureQuad tC;
 //	public int yr = 1989;
 
 //	scaff.scaffolder scaff;
 	Context parent;
 
-	int mode= 1; // 0 - view / 1 - add / 2 - edit
+	int mode = 2; // 0 - view / 1 - add / 2 - edit
 
 	int newPolyType = 0;
 	ArrayList<glVector> newPoly = new ArrayList<glVector>();
@@ -113,9 +113,9 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
 // ---------------------------------------------------- TEXTURE QUADS
 
-	textureQuad hover,hoverSmall,hoverLight,tubeText,clampText,plan,locInfo,
-	currentBest,toolTip,gridInfo,yearInfo;
-	textureQuad [] overMessage;
+//	textureQuad hover,hoverSmall,hoverLight,tubeText,clampText,plan,locInfo,
+//	currentBest,toolTip,gridInfo,yearInfo;
+//	textureQuad [] overMessage;
 
 	public int selectedI = -1;
 	public int toMove = -1;
@@ -145,7 +145,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 							-gui.screenYdim + touchEvents[1] * 2 / smallDim,
 							0);
 		Matrix.multiplyMM(mvp, 0, touchTrans, 0, mvp, 0);
-		tC.draw(mvp);
+//		tC.draw(mvp);
 		if (touchEvents.length > 2) {
 			mvp = gui.cam.getMVP();
 			glBase.translate(touchTrans,
@@ -153,7 +153,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 								(touchEvents[3] - touchEvents[1]) * 2 / smallDim,
 								0);
 			Matrix.multiplyMM(mvp, 0, touchTrans, 0, mvp, 0);
-			tC.draw(mvp);
+//			tC.draw(mvp);
 		}
 //		}
 	}
@@ -250,20 +250,20 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 		glBase.translate(tempTranslate, -0.6f, -2f, 0);
 
 
-		tC = new textureQuad();
-		clampText = new textureQuad();
-		tubeText = new textureQuad();
-		currentBest = new textureQuad();
-		yearInfo = new textureQuad();
-		gridInfo = new textureQuad();
-		locInfo = new textureQuad();
-//		overMessage = new textureQuad[5];
-		hover = new textureQuad();
-		hoverSmall = new textureQuad();
-		hoverLight = new textureQuad();
-//		tooltip = new textureQuad[];
-
-		plan = new textureQuad();
+//		tC = new textureQuad();
+//		clampText = new textureQuad();
+//		tubeText = new textureQuad();
+//		currentBest = new textureQuad();
+//		yearInfo = new textureQuad();
+//		gridInfo = new textureQuad();
+//		locInfo = new textureQuad();
+////		overMessage = new textureQuad[5];
+//		hover = new textureQuad();
+//		hoverSmall = new textureQuad();
+//		hoverLight = new textureQuad();
+////		tooltip = new textureQuad[];
+//
+//		plan = new textureQuad();
 //		setYear.draw(mvp);
 //		Matrix.multiplyMM(mvp,0,tempTransMatrixX,0,mvp,0);
 //		setGrid.draw(mvp);
@@ -399,7 +399,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 		grid.draw(mMVPMatrix);
 		switch (mode) {
 			case 2:
-				plan.draw(mMVPMatrix);
+//				plan.draw(mMVPMatrix);
 //				if (newPolyz.size() > 0) { 
 //					for (int i = 0; i < newPolyz.size(); i++) {
 //						newPolyz.get(i).draw(mMVPMatrix);
@@ -457,18 +457,18 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 //				gui.drawForBack(mMVPMatrix);
 				//placeholder
 //				break;
-				gui.drawHelpIcon(mMVPMatrix);
-				displayNotationMode(mMVPMatrix);
-				gui.drawForward(mMVPMatrix);
-				gui.drawBackward(mMVPMatrix);
-				if (newPoly.size() > 2 || (removeMode && selectedI > -1)) gui.displayFunc(mMVPMatrix);
-				if (newPoly.size() > 0) {
-					gui.displayUndo(mMVPMatrix);
-					gui.displayDone(mMVPMatrix);
-				}
-				if (editMode || removeMode) {
-					gui.displayDone(mMVPMatrix);
-				}
+//				gui.drawHelpIcon(mMVPMatrix);
+//				displayNotationMode(mMVPMatrix);
+//				gui.drawForward(mMVPMatrix);
+//				gui.drawBackward(mMVPMatrix);
+//				if (newPoly.size() > 2 || (removeMode && selectedI > -1)) gui.displayFunc(mMVPMatrix);
+//				if (newPoly.size() > 0) {
+//					gui.displayUndo(mMVPMatrix);
+//					gui.displayDone(mMVPMatrix);
+//				}
+//				if (editMode || removeMode) {
+//					gui.displayDone(mMVPMatrix);
+//				}
 				//axiz.draw(mMVPMatrix);
 
 				break;
@@ -512,44 +512,44 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
 // ---------------------------------------------------- GUI ELEMENTS 2
 
-		if (gui.hoverButton != -1) {
-			float [] mvp = gui.cam.getMVP();
-			Matrix.setIdentityM(hoverTrans, 0);
-			glBase.translate(hoverTrans,
-								-ratio + gui.buttons[gui.hoverButton].centX * 2 * iHeight,
-								-1 + gui.buttons[gui.hoverButton].centY * 2 * iHeight,
-								0);
-			Matrix.multiplyMM(mvp, 0, hoverTrans, 0, mvp, 0);
-			if (mode < 2) hover.draw(mvp);
-			else hoverSmall.draw(mvp);
-		}
-		if (editMode || removeMode || polyIsOpen) {
-			float [] mvp = gui.cam.getMVP();
-			int butt = -1;
-			if (polyIsOpen) {
-				switch (newPolyType) {
-					case 1:butt = 9;
-						break;
-					case 2:butt = 11;
-						break;
-					case 3:butt = 12;
-						break;
-					case 4:butt = 10;
-						break;
-				}
-			}
-			if (removeMode) butt = 13;
-			if (editMode) butt = 14;
-			Matrix.setIdentityM(hoverTrans, 0);
-			glBase.translate(hoverTrans,
-								-ratio + gui.buttons[butt].centX * 2 * iHeight,
-								-1 + gui.buttons[butt].centY * 2 * iHeight,
-								0);
-			Matrix.multiplyMM(mvp, 0, hoverTrans, 0, mvp, 0);
-			hoverLight.draw(mvp);
-		}
+//		if (gui.hoverButton != -1) {
+//			float [] mvp = gui.cam.getMVP();
+//			Matrix.setIdentityM(hoverTrans, 0);
+//			glBase.translate(hoverTrans,
+//								-ratio + gui.buttons[gui.hoverButton].centX * 2 * iHeight,
+//								-1 + gui.buttons[gui.hoverButton].centY * 2 * iHeight,
+//								0);
+//			Matrix.multiplyMM(mvp, 0, hoverTrans, 0, mvp, 0);
+////			if (mode < 2) hover.draw(mvp);
+////			else hoverSmall.draw(mvp);
+//		}
+//		if (editMode || removeMode || polyIsOpen) {
+//			float [] mvp = gui.cam.getMVP();
+//			int butt = -1;
+//			if (polyIsOpen) {
+//				switch (newPolyType) {
+//					case 1:butt = 9;
+//						break;
+//					case 2:butt = 11;
+//						break;
+//					case 3:butt = 12;
+//						break;
+//					case 4:butt = 10;
+//						break;
+//				}
+//			}
+//			if (removeMode) butt = 13;
+//			if (editMode) butt = 14;
+//			Matrix.setIdentityM(hoverTrans, 0);
+//			glBase.translate(hoverTrans,
+//								-ratio + gui.buttons[butt].centX * 2 * iHeight,
+//								-1 + gui.buttons[butt].centY * 2 * iHeight,
+//								0);
+//			Matrix.multiplyMM(mvp, 0, hoverTrans, 0, mvp, 0);
+//			hoverLight.draw(mvp);
+//		}
 
-		if (mode > 0) overMessage[overMessageNum].draw(mMVPMatrix);
+//		if (mode > 0) overMessage[overMessageNum].draw(mMVPMatrix);
 
 		if (debugger) System.out.println("4"); // ------------ DEBUG 4
 
@@ -1008,7 +1008,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
 	}
 	public void displayNotationMode(float [] mvp) {
-		gui.notationModeMenu(mvp);
+//		gui.notationModeMenu(mvp);
 	}
 	float [] translatePointToWorld(float x, float y) {
 		float [] nPv = {((2 * x) / smallDim) - gui.screenXdim,
@@ -1022,7 +1022,8 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 //		mL.constructMoving(nPv[0], nPv[1]);
 	}
 	public void longTouchInterpret(float x, float y) {
-		boolean b = gui.checkButtons(1, x, y);
+//		boolean b = gui.checkButtons(1, x, y);
+		boolean b = false;
 		if (!b) {
 			float [] nPv = translatePointToWorld(x, y);
 			if (selectedI > -1 && editMode) {
@@ -1127,7 +1128,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 	}
 	public void setOverMessage() {
 		String [] overStrings = new String[10];
-		overMessage = new textureQuad[overStrings.length];
+//		overMessage = new textureQuad[overStrings.length];
 
 		overStrings[0] = "";
 		overStrings[1] = "PRE - EXCAVATION NOTATION MODE";
@@ -1141,10 +1142,10 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 		overStrings[9] = "AREA ADDITION MODE \n Tap to add points of polygon";
 
 		for (int i = 0; i < overStrings.length;i++) {
-			overMessage[i] = new textureQuad();
-			overMessage[i].generate(parent, 256.0f * iWidth, -ratio + 512.0f * iWidth, -1f + 512.0f * iWidth, 0f,
-//									overMessage[i].generate(parent, 256.0f * iWidth, 0, 0, 0f,
-									overStrings[i], 0);
+//			overMessage[i] = new textureQuad();
+//			overMessage[i].generate(parent, 256.0f * iWidth, -ratio + 512.0f * iWidth, -1f + 512.0f * iWidth, 0f,
+////									overMessage[i].generate(parent, 256.0f * iWidth, 0, 0, 0f,
+//									overStrings[i], 0);
 		}
 
 	}
@@ -1152,7 +1153,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
 		String s =
 			"Current session:" + currYear + " / " + currSession;
-		yearInfo.generate(parent, 256.0f * iWidth, -ratio * 0.5f, 0.05f, 0f, s, 1);
+//		yearInfo.generate(parent, 256.0f * iWidth, -ratio * 0.5f, 0.05f, 0f, s, 1);
 	}
 	public void generateGridInfo() {
 		String s = "Grid Properties:";
@@ -1162,7 +1163,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 			"Line Distance in Y: " + grid.gridY * 10 + "m \n" +
 			"Sub-grid divisions: " + grid.divisions + "\n" +
 			"";
-		gridInfo.generate(parent, 256.0f / wWidth, 0f, 0.05f, 0f, s, 1);
+//		gridInfo.generate(parent, 256.0f / wWidth, 0f, 0.05f, 0f, s, 1);
 	}
 	public void generateLocationInfo() {
 		String s =
@@ -1170,7 +1171,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 			"Lat: " + baseLocationLat + "\n" +
 			"Lon: " + baseLocationLon + "\n" +
 			"";
-		locInfo.generate(parent, 256.0f / wWidth, ratio / 2, 0.05f, 0f, s, 1);
+//		locInfo.generate(parent, 256.0f / wWidth, ratio / 2, 0.05f, 0f, s, 1);
 	}
 
 }

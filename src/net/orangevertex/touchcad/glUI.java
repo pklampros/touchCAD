@@ -44,50 +44,50 @@ public class glUI {
 
 	public boolean checkButtons(int t, float x, float y) {
 		boolean result = false;
-		hoverButton = -1;
-		for (int i = 0; i < buttons.length;i++) {
-//				System.out.println("button: " + buttons[i].minX + " " + buttons[i].maxX);
-//				System.out.println("button: " + buttons[i].minY + " " + buttons[i].maxY);
-//				System.out.println("button: " + c1Y + " " + c1X);
-			if (y > buttons[i].minY && y < buttons[i].maxY &&
-				x > buttons[i].minX && x < buttons[i].maxX) {
-				if (t == 0) result = parent.triggerEvent(i);
-				if (t == 1) {
-					if (parent.mode == 0 &&
-						(i >= 0 || i <= 2)) 
-						parent.infoScreen = i;
-					if (parent.mode == 1 &&
-						(i >= 3 && i <= 7))
-						parent.infoScreen = i;
-					if (parent.mode == 2 &&
-						(i >= 8 && i <= 15))
-						parent.infoScreen = i;
-					if (parent.mode == 3 && 
-						(i == 8 || i == 15))
-						parent.infoScreen = i;
-					if (parent.mode == 3 &&
-						(i >= 9 && i <= 14))
-						parent.infoScreen = i + 7;
-					if (parent.infoScreen != -1)
-						result = true;
-				}
-				if (t == 2) {
-					if (parent.mode == 0 &&
-						(i >= 0 || i <= 2)) 
-						hoverButton = i;
-					if (parent.mode == 1 &&
-						(i >= 3 && i <= 7))
-						hoverButton = i;
-					if (parent.mode > 1 &&
-						(i >= 8 && i <= 15))
-						hoverButton = i;
-					if (hoverButton != -1) 
-						result = true;
-				}
-				//System.out.println("triggering event: " + i);
-
-			}
-		}
+//		hoverButton = -1;
+//		for (int i = 0; i < buttons.length;i++) {
+////				System.out.println("button: " + buttons[i].minX + " " + buttons[i].maxX);
+////				System.out.println("button: " + buttons[i].minY + " " + buttons[i].maxY);
+////				System.out.println("button: " + c1Y + " " + c1X);
+//			if (y > buttons[i].minY && y < buttons[i].maxY &&
+//				x > buttons[i].minX && x < buttons[i].maxX) {
+//				if (t == 0) result = parent.triggerEvent(i);
+//				if (t == 1) {
+//					if (parent.mode == 0 &&
+//						(i >= 0 || i <= 2)) 
+//						parent.infoScreen = i;
+//					if (parent.mode == 1 &&
+//						(i >= 3 && i <= 7))
+//						parent.infoScreen = i;
+//					if (parent.mode == 2 &&
+//						(i >= 8 && i <= 15))
+//						parent.infoScreen = i;
+//					if (parent.mode == 3 && 
+//						(i == 8 || i == 15))
+//						parent.infoScreen = i;
+//					if (parent.mode == 3 &&
+//						(i >= 9 && i <= 14))
+//						parent.infoScreen = i + 7;
+//					if (parent.infoScreen != -1)
+//						result = true;
+//				}
+//				if (t == 2) {
+//					if (parent.mode == 0 &&
+//						(i >= 0 || i <= 2)) 
+//						hoverButton = i;
+//					if (parent.mode == 1 &&
+//						(i >= 3 && i <= 7))
+//						hoverButton = i;
+//					if (parent.mode > 1 &&
+//						(i >= 8 && i <= 15))
+//						hoverButton = i;
+//					if (hoverButton != -1) 
+//						result = true;
+//				}
+//				//System.out.println("triggering event: " + i);
+//
+//			}
+//		}
 		return result;
 	}
 //	public void drawHoverButton(float [] mvp) {
@@ -101,11 +101,12 @@ public class glUI {
 							float s2X, float s2Y, float c2X, float c2Y) {
 		boolean entered = false;
 		if (type == 3) {
-			entered = checkButtons(0, c1X, c1Y);
-			if (!entered) {
+//			entered = checkButtons(0, c1X, c1Y);
+//			if (!entered) {
 				parent.touchInterpret(c1X, c1Y);
-			}
+//			}
 		}
+		
 		if (c1X < 8 * width / 8 && !entered) {
 
 			if (type == 1) {
@@ -115,7 +116,7 @@ public class glUI {
 //						pointer2up = false;
 //					wasDouble = false;
 //					}
-//					if ((s1X == c1X && s1Y == c1Y)) {} else 
+//					if ((s1X == c1X && s1Y == c1Y)) {} else
 					if (!wasDouble) {
 						cam.setSinglePointer(height,
 											 width, s1X, s1Y, c1X, c1Y);
@@ -620,7 +621,6 @@ public class glUI {
 						rotVector.x = rotFactor * (sX - cX);
 					}
 					if (sY < height * 0.87) {
-
 						panVector.x = panFactor * (sX - cX);
 						panVector.y = -1 * panFactor * (sY - cY);
 					}
