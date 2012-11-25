@@ -1,4 +1,4 @@
 touchCAD
 ======
 
-=== another cad app!! ===
+=== another android cad app!! ===
